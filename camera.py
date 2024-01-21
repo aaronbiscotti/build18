@@ -79,7 +79,7 @@ def load_known_faces(friends):
     return known_face_encodings, known_face_names
 
 def main():
-    print("Loading face encoding...")
+    print("Loading face encodings...")
     known_face_encodings, known_face_names = load_known_faces(friends)
 
     while True:
