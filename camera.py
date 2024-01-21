@@ -119,6 +119,8 @@ def main():
                     name = known_face_names[best_match_index]
 
                 print(f"Recognized: {name}")
+            else:
+                print(f"No face matched")
             
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
