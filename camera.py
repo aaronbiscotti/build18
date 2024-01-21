@@ -32,27 +32,27 @@ import gc
 friends = [
     {
         "name": "Barack Obama",
-        "file_path": "images/obama.jpg"
+        "file_path": "images/obama.jpeg"
     },
     {
         "name": "Aaron",
-        "file_path": "images/aaron.jpg"
+        "file_path": "images/aaron.jpeg"
     },
     {
         "name": "Dylan",
-        "file_path": "images/dylan.jpg"
+        "file_path": "images/dylan.jpeg"
     },
     {
         "name": "Gina",
-        "file_path": "images/gina.jpg"
+        "file_path": "images/gina.jpeg"
     },
     {
         "name": "Gio",
-        "file_path": "images/gio.jpg"
+        "file_path": "images/gio.jpeg"
     },
     {
         "name": "Justin",
-        "file_path": "images/justin.jpg"
+        "file_path": "images/justin.jpeg"
     }
 ]
 
