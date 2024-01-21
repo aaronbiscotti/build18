@@ -36,7 +36,7 @@ friends = [
     },
     {
         "name": "Aaron",
-        "file_path": "images/aaron.jpeg"
+        "file_path": "images/aaron.jpg"
     },
     {
         "name": "Dylan",
