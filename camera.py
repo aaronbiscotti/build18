@@ -27,6 +27,7 @@ import numpy as np
 import face_recognition
 import tempfile
 import time
+from tqdm import tqdm
 import gc
 
 friends = [
@@ -69,7 +70,7 @@ def capture_image():
 def load_known_faces(friends):
     known_face_encodings = []
     known_face_names = []
-    for friend in friends:
+    for friend in tqdm(friends):
         # Load each friend's image and encode their face
         image = face_recognition.load_image_file(friend["file_path"])
         face_encoding = face_recognition.face_encodings(image)[0]
@@ -78,6 +79,7 @@ def load_known_faces(friends):
     return known_face_encodings, known_face_names
 
 def main():
+    print("Loading face encoding...")
     known_face_encodings, known_face_names = load_known_faces(friends)
 
     while True:
