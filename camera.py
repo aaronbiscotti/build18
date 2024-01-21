@@ -100,6 +100,9 @@ def main():
         face_locations = face_recognition.face_locations(rgb_small_frame)
         face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
 
+        if face_encodings == None or (isinstance(list(face_encodings) and len(face_encodings) == 0)):
+            print(f"No face encodings found")
+
         print(f"Running face-matching...")
         for face_encoding in face_encodings:
              # Compare the face with all known faces
