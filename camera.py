@@ -100,38 +100,23 @@ def main():
         face_locations = face_recognition.face_locations(rgb_small_frame)
         face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
 
-        if face_encodings == None or (isinstance(face_encodings, list) and len(face_encodings) == 0):
+        if not face_encodings:
             print(f"No face encodings found")
+            continue
 
         print(f"Running face-matching...")
         for face_encoding in face_encodings:
-             # Compare the face with all known faces
-            matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
             face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
+            best_match_index = np.argmin(face_distances)
+            name = known_face_names[best_match_index]
 
-            name = "Unknown"  # Default to "Unknown" if no match is found
+            print(f"Recognized: {name}")
 
-            # Proceed if there are any matches
-            if True in matches:
-                # Filter distances for only those faces that matched
-                matching_distances = [dist for is_match, dist in zip(matches, face_distances) if is_match]
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
-                # Find the best match (minimum distance)
-                best_match_index = np.argmin(matching_distances)
-                if matches[best_match_index]:
-                    name = known_face_names[best_match_index]
-
-                print(f"Recognized: {name}")
-            else:
-                print(f"No face matched")
-            
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-        gc.collect()
-        time.sleep(5)
-
-    cv2.destroyAllWindows()
+            gc.collect()
+            time.sleep(5)
 
 if __name__ == "__main__":
     main()
