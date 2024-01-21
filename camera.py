@@ -115,8 +115,11 @@ def main():
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
-            gc.collect()
-            time.sleep(5)
+        with open("recognized_face.txt", "w") as file:
+            file.write(name)
+
+        gc.collect()
+        time.sleep(5)
 
 if __name__ == "__main__":
     main()
