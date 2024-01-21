@@ -84,32 +84,21 @@ while True:
 
     process_this_frame = not process_this_frame
 
-    for (top, right, bottom, left), name in zip(face_locations, face_names):
-        top *= 4
-        right *= 4
-        bottom *= 4
-        left *= 4
+    if name == "Unknown":
+        new_name = input("I don't recognize you, what's your name? ")
+        screenshot_filename = f"{new_name}.jpg"
+        cv2.imwrite(screenshot_filename, image)
 
-        cv2.rectangle(image, (left, top), (right, bottom), (0, 0, 255), 2)
-        cv2.rectangle(image, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
-        font = cv2.FONT_HERSHEY_DUPLEX
-        cv2.putText(image, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+        new_face_image = face_recognition.load_image_file(screenshot_filename)
+        new_face_encodings = face_recognition.face_encodings(new_face_image)
 
-        if name == "Unknown":
-            new_name = input("I don't recognize you, what's your name? ")
-            screenshot_filename = f"{new_name}.jpg"
-            cv2.imwrite(screenshot_filename, image)
-
-            new_face_image = face_recognition.load_image_file(screenshot_filename)
-            new_face_encodings = face_recognition.face_encodings(new_face_image)
-
-            if new_face_encodings:
-                new_face_encoding = new_face_encodings[0]
-                known_face_encodings.append(new_face_encoding)
-                known_face_names.append(new_name)
-                face_names[-1] = new_name
-            else:
-                print(f"No face found in the screenshot for {new_name}. Please try again.")
+        if new_face_encodings:
+            new_face_encoding = new_face_encodings[0]
+            known_face_encodings.append(new_face_encoding)
+            known_face_names.append(new_name)
+            face_names[-1] = new_name
+        else:
+            print(f"No face found in the screenshot for {new_name}. Please try again.")
 
     cv2.imshow('Video', image)
     os.remove(image_path)
