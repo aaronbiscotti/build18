@@ -71,11 +71,18 @@ def load_known_faces(friends):
     known_face_encodings = []
     known_face_names = []
     for friend in tqdm(friends):
-        # Load each friend's image and encode their face
+        # Load each friend's image
         image = face_recognition.load_image_file(friend["file_path"])
-        face_encoding = face_recognition.face_encodings(image)[0]
-        known_face_encodings.append(face_encoding)
-        known_face_names.append(friend["name"])
+
+        # Attempt to find face encodings in the image
+        encodings = face_recognition.face_encodings(image)
+
+        # Check if at least one face was found
+        if encodings:
+            known_face_encodings.append(encodings[0])
+            known_face_names.append(friend["name"])
+        else:
+            print(f"No faces found in {friend['file_path']}. Skipping this image.")
     return known_face_encodings, known_face_names
 
 def main():
